@@ -1,0 +1,26 @@
+
+{
+    "General": {
+        "Username": "tqtuyen.deptrai@fit.hcmus.edu.vn",
+        "Password": "12345678",
+        "MailServer": "127.0.0.1",
+        "SMTP": 130,
+        "POP3": 270,
+        "AutoLoad": 10
+    },
+    "FilterEmail": {
+        "Folder": {
+            "Inbox": "./Inbox/",
+            "Project": "./Project/",
+            "Important": "./Important/",
+            "Work": "./Work/",
+            "Spam": "./Spam/"
+        },
+        "KeyWord": {
+            "AddressSender": ["ahihi@testing.com", "ahuu@testing.com"],
+            "Subject": ["urgent", "ASAP"],
+            "Body": ["report", "meeting"],
+            "Key": ["hack", "crack", "virus"]
+        }
+    }
+}
