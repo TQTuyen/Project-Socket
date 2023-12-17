@@ -10,11 +10,11 @@
     },
     "FilterEmail": {
         "Folder": {
+            "Important": "./Important/",
             "Inbox": "./Inbox/",
             "Project": "./Project/",
-            "Important": "./Important/",
-            "Work": "./Work/",
-            "Spam": "./Spam/"
+            "Spam": "./Spam/",
+            "Work": "./Work/"
         },
         "KeyWord": {
             "AddressSender": ["ahihi@testing.com", "ahuu@testing.com"],
