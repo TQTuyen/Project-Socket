@@ -15,6 +15,7 @@ config = json.load(config)
 host = config['General']['MailServer']
 port = config['General']['POP3']
 username = config['General']['Username']
+username = re.search(pattern="<(.+)>", string=username).group(1)
 password = config['General']['Password']
 FOLDER_NAME = config['FilterEmail']['Folder']
 FILTER_EMAIL = config['FilterEmail']['KeyWord']
@@ -97,8 +98,9 @@ def filter_email(body, address_sender, subject_message, file_name):
     
 
 def download_email():
-    try:
-        while True:
+    while True:
+        pop3_email = None
+        try:
             pop3_email = pop3.POP3(host = host, port = port)
             pop3_email.user(username)
             pop3_email.password(password)
@@ -115,13 +117,15 @@ def download_email():
                 filter_email(data, message['From'], message['Subject'], uidl_messages[i])
                 pop3_email.dele(i)
             pop3_email.quit()
-            time.sleep(AUTO_LOAD)
-    except KeyboardInterrupt as err:
-        print(err)
-    except OSError as err:
-        print(err)
-    finally:
-        pop3_email.quit()
+        except KeyboardInterrupt as err:
+            print(err)
+        except OSError as err:
+            print(err)
+        finally:
+            if pop3_email:
+                pop3_email.quit()
+        time.sleep(AUTO_LOAD)
+        
 
 
 def read_file(file_name, path='./'):
@@ -177,7 +181,7 @@ def read_email():
         else:
             message = messages[int(i) - 1]
             print(f'Noi dung email thu {i}:')
-            print(message['Content'].decode())
+            print(message['Content'].decode(),'\n')
             check = False
             if message['Attached-Files']:
                 select = input('Co file dinh kem, ban co muon tai khong(y, yes, co)? ')
@@ -192,7 +196,8 @@ def read_email():
                 for file in message['Attached-Files']:
                     write_file(file[1], file[0], path)
 
-        
+
+
 
 
 

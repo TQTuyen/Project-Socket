@@ -1,7 +1,7 @@
 
 {
     "General": {
-        "Username": "tqtuyen.deptrai@fit.hcmus.edu.vn",
+        "Username": "Tran Quang Tuyen <tqtuyen.deptrai@fit.hcmus.edu.vn>",
         "Password": "12345678",
         "MailServer": "192.168.15.128",
         "SMTP": 25,

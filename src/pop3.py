@@ -15,6 +15,7 @@ class POP3:
         self.socket = self.create_socket(time_out)
         self.file = self.socket.makefile('rb')
         self.welcome = self.get_response()
+        self.end = 0
     
     
     def create_socket(self, time_out):
@@ -118,8 +119,11 @@ class POP3:
     
     
     def quit(self):
-        response = self.short_command('QUIT')
-        self.close()
+        response = None
+        if not self.end:
+            response = self.short_command('QUIT')
+            self.close()
+            self.end = 1
         return response
     
     
