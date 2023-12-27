@@ -99,7 +99,7 @@ def filter_email(body, address_sender, subject_message, file_name):
 def download_email():
     try:
         while True:
-            pop3_email = pop3.POP3(port = port)
+            pop3_email = pop3.POP3(host = host, port = port)
             pop3_email.user(username)
             pop3_email.password(password)
             number_messages, size_email = pop3_email.stat()

@@ -3,9 +3,9 @@
     "General": {
         "Username": "tqtuyen.deptrai@fit.hcmus.edu.vn",
         "Password": "12345678",
-        "MailServer": "127.0.0.1",
-        "SMTP": 130,
-        "POP3": 270,
+        "MailServer": "192.168.15.128",
+        "SMTP": 25,
+        "POP3": 110,
         "AutoLoad": 10
     },
     "FilterEmail": {
