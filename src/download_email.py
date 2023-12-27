@@ -111,12 +111,14 @@ def download_email():
             for i in range(1, number_messages + 1):
                 response, content_message, _ = pop3_email.retr(i)
                 data = pop3.CRLF.join(content_message)
-                message = parser_email(content_message)
+                message = parser_email(data)
                 filter_email(data, message['From'], message['Subject'], uidl_messages[i])
                 pop3_email.dele(i)
             pop3_email.quit()
             time.sleep(AUTO_LOAD)
     except KeyboardInterrupt as err:
+        print(err)
+    except OSError as err:
         print(err)
     finally:
         pop3_email.quit()
@@ -178,7 +180,7 @@ def read_email():
             print(message['Content'].decode())
             check = False
             if message['Attached-Files']:
-                select = input('Co file dinh kem, ban co muon tai khong? ')
+                select = input('Co file dinh kem, ban co muon tai khong(y, yes, co)? ')
                 if select in ['y', 'yes', 'co']:
                     check = True
                     path = input('Nhap duong dan muon tai ve: ')
@@ -202,12 +204,13 @@ if __name__ == '__main__':
         print(folder)
         if not os.path.exists(folder):
             os.mkdir(folder)
-    down_mail = threading.Thread(target = download_email)
-    read_mail = threading.Thread(target = read_email)
+    download_email()
+    # down_mail = threading.Thread(target = download_email)
+    # read_mail = threading.Thread(target = read_email)
     down_mail.start()
-    read_mail.start()
+    # read_mail.start()
     down_mail.join()
-    read_mail.join()
+    # read_mail.join()
     
     
     
