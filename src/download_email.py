@@ -204,13 +204,12 @@ if __name__ == '__main__':
         print(folder)
         if not os.path.exists(folder):
             os.mkdir(folder)
-    download_email()
-    # down_mail = threading.Thread(target = download_email)
-    # read_mail = threading.Thread(target = read_email)
+    down_mail = threading.Thread(target = download_email)
+    read_mail = threading.Thread(target = read_email)
     down_mail.start()
-    # read_mail.start()
+    read_mail.start()
     down_mail.join()
-    # read_mail.join()
+    read_mail.join()
     
     
     
