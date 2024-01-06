@@ -1,12 +1,12 @@
-Message-ID: <f55832a9-dd66-4b21-9aab-3d74e7ac0fc2@testing.com>
-Date: Wed, 27 Dec 2023 22:56:24 +0700
+Message-ID: <7db396f2-a2c5-4907-b91d-9b20c8c7e95f@testing.com>
+Date: Sun, 7 Jan 2024 00:26:42 +0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
-Cc: tqtuyen.deptrai@fit.hcmus.edu.vn
+To: tqtuyen.deptrai@fit.hcmus.edu.vn
 From: ahihi <ahihi@testing.com>
-Subject: test mail
+Subject: hello
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-oke
+how

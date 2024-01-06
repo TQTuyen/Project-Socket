@@ -36,7 +36,7 @@ def get_filesize(file_path):
 
 
 
-if __name__ == "__main__":
+def main():
     # Configuration
     file=open('config.json','rt')
     config=json.load(file)
