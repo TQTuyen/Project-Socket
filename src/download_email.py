@@ -59,27 +59,27 @@ def write_file(data, file_name, path='./'):
         file.write(data)
         
 
-def filter_email(body, address_sender, subject_message, file_name, config):
+def filter_email(raw_email, body, address_sender, subject_message, file_name, config):
     check = False
     if address_sender in config['KeyWordFilter']['AddressSender']:
         path = config['FolderFilter']['Project']
-        write_file(body, file_name, path)
+        write_file(raw_email, file_name, path)
         check = True
     if [msg for msg in config['KeyWordFilter']['Subject'] if msg in subject_message]:
         path = config['FolderFilter']['Important']
-        write_file(body, file_name, path)
+        write_file(raw_email, file_name, path)
         check = True
     if [msg for msg in config['KeyWordFilter']['Body'] if bytes(msg, 'utf8') in body]:
         path = config['FolderFilter']['Work']
-        write_file(body, file_name, path)
+        write_file(raw_email, file_name, path)
         check = True
     if [msg for msg in config['KeyWordFilter']['Key'] if bytes(msg, 'utf8') in body or msg in subject_message]:
         path = config['FolderFilter']['Spam']
-        write_file(body, file_name, path)
+        write_file(raw_email, file_name, path)
         check = True
     if not check:
         path = config['FolderFilter']['Inbox']
-        write_file(body, file_name, path)
+        write_file(raw_email, file_name, path)
 
 
 
@@ -107,9 +107,9 @@ def download_email():
                 
             for i in range(1, number_messages + 1):
                 response, content_message, _ = pop3_email.retr(i)
-                data = pop3.CRLF.join(content_message)
-                message = parser_email(data)
-                filter_email(data, message['From'], message['Subject'], uidl_messages[i], config)
+                raw_email = pop3.CRLF.join(content_message)
+                message = parser_email(raw_email)
+                filter_email(raw_email, message['Content'], message['From'], message['Subject'], uidl_messages[i], config)
                 pop3_email.dele(i)
                 
         except KeyboardInterrupt as err:
@@ -182,7 +182,7 @@ def read_email():
     for folder in config['FolderFilter']:
         print(f'{i}. {folder}')
         i += 1
-    path = input('Nhap thu muc muon doc email(nhan enter de bo qua): ')
+    path = input('Nhập thư mục muốn đọc email (Nhấn enter để bỏ qua): ')
     if not path or int(path) > i or int(path) < 1:
         return
     
@@ -195,16 +195,16 @@ def read_email():
         sender = message['From']
         subject = message['Subject']
         uid = message['UID']
-        seen =  "Seen" if seen_messages.get(uid, False) == True else "Unseen" 
+        seen =  "Đã đọc" if seen_messages.get(uid, False) == True else "Chưa đọc" 
         print(f'{i}.({seen}) <{sender}>, <{subject}>')
         i += 1
     
 
-    i = input('Ban muon doc tin nhan thu may(nhan enter de thoat ra ngoai): ')
+    i = input('Bạn muốn đọc tin nhắn thứ mấy (nhấn enter để thoát ra ngoài): ')
     if not i:
         return
     elif int(i) > len(messages) or int(i) < 1:
-        print('Invalid values')
+        print('Giá trị không hợp lệ !!!')
     else:
         message = messages[int(i) - 1]
         if seen_messages.get(message['UID'], False) == False:
@@ -212,14 +212,14 @@ def read_email():
             with open('./seen.json', 'wt') as file:
                 json.dump(seen_messages, file)
                 
-        print(f'Noi dung email thu {i}:\n')
+        print(f'Nội dung email thứ {i}:\n')
         print(message['Content'].decode(),'\n')
         check = False
         if message['Attached-Files']:
-            select = input('Co file dinh kem, ban co muon tai khong(y, yes, co)? ')
+            select = input('Có file đính kèm, bạn có muốn tải không? (y,yes,co): ')
             if select in ['y', 'yes', 'co']:
                 check = True
-                path = input('Nhap duong dan muon tai ve: ')
+                path = input('Nhập đường dẫn muốn tải về: ')
                 if not path:
                     return
                 if path[-1:] != '/':
@@ -234,9 +234,6 @@ def read_email():
 if __name__ == '__main__':
     download_email()
     
-    
-    
-
 
 
 

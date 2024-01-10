@@ -5,17 +5,20 @@ import download_email
 
 if __name__ == '__main__':
     while True:
-        print("Please choose your selection:")
-        print("1. Send email")
-        print("2. Read list email")
-        print("3. Exit")
+        print("Vui lòng lựa chọn: ")
+        print("1. Gửi email")
+        print("2. Đọc email")
+        print("3. Thoát")
 
-        choice = int(input("Choose: "))
-        if choice == 1:
+        choice = input("Chọn: ")
+        if not choice:
+            print('Giá trị không hợp lệ')
+            continue
+        elif choice == '1':
             smtp1.main()
-        elif choice == 2:
+        elif choice == '2':
             download_email.read_email()
-        elif choice == 3:
+        elif choice == '3':
             break
         else:
-            print('Invalid')
+            print('Giá trị không hợp lệ !!!')

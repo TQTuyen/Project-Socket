@@ -95,19 +95,19 @@ def Get_RcptArr(Destinationemail,cc_Destination,bcc_Destination):
     return rcpt_arr
 
 def Get_Input_FromUser():
-    DestinationEmail=input("To:")
-    cc_Destination=input("CC:")
-    bcc_Destination=input("BCC:")
+    DestinationEmail=input("To: ")
+    cc_Destination=input("CC: ")
+    bcc_Destination=input("BCC: ")
     Rcpt_arr=Get_RcptArr(DestinationEmail,cc_Destination,bcc_Destination)
-    Subject=input("Nhập Subject:")
-    userMessage=input("Nhập vào nội dung muốn gửi:")
-    flag_attachment=int(input("Co muon gui file dinh kem khonng(1.Co, 2.Khong)"))
+    Subject=input("Nhập Subject: ")
+    userMessage=input("Nhập vào nội dung muốn gửi: ")
+    flag_attachment=int(input("Có muốn gửi file đính kèm không (1.Có, 2.Không): "))
     total_file=0
     path_arr=[]
     if(flag_attachment==1):
-        total_file=int(input("Số lượng file muốn gửi:"))
+        total_file=int(input("Số lượng file muốn gửi: "))
         for i in range(total_file):
-            string=input("Nhập địa chỉ file:")
+            string=input("Nhập địa chỉ file: ")
             while(os.path.exists(string)==False):
                 string=input("Đường dẫn không tồn tại, vui lòng nhập lại đường dẫn mới\n")
             while(get_filesize(string)>3):
@@ -160,9 +160,9 @@ def main():
     Rcpt_Arr=[]
 
     name_email, user_name, userEmail, userPassword,mail_server_ip,smtp_port,pop3_port,autoload_time=Read_ConfigFile()
-    clientSocket=Create_Socket(mail_server_ip,smtp_port)
     DestinationEmail,cc_Destination,bcc_Destination,Subject,userMessage,path_arr,Rcpt_Arr=Get_Input_FromUser()
     msg=Create_msg(userEmail,name_email,DestinationEmail,cc_Destination,bcc_Destination,Subject,userMessage,path_arr)  
+    clientSocket=Create_Socket(mail_server_ip,smtp_port)
     Greeting_Server(userEmail,clientSocket,mail_server_ip,Rcpt_Arr)
     Sending_msg(clientSocket,msg)
     Stopping_socketConnection(clientSocket)
