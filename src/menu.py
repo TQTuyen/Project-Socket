@@ -1,4 +1,4 @@
-import SMTP
+import smtp1
 import download_email
 
 
@@ -12,7 +12,7 @@ if __name__ == '__main__':
 
         choice = int(input("Choose: "))
         if choice == 1:
-            SMTP.main()
+            smtp1.main()
         elif choice == 2:
             download_email.read_email()
         elif choice == 3:

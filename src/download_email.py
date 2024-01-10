@@ -6,7 +6,6 @@ import os
 import re
 import json
 import pop3
-import threading
 
 
 
@@ -196,7 +195,7 @@ def read_email():
         sender = message['From']
         subject = message['Subject']
         uid = message['UID']
-        seen =  "Seen" if seen_messages[uid] == True else "Unseen" 
+        seen =  "Seen" if seen_messages.get(uid) == True else "Unseen" 
         print(f'{i}.({seen}) <{sender}>, <{subject}>')
         i += 1
     
@@ -208,7 +207,7 @@ def read_email():
         print('Invalid values')
     else:
         message = messages[int(i) - 1]
-        if seen_messages[message['UID']] == False:
+        if seen_messages.get(message['UID']) == False:
             seen_messages[message['UID']] = True
             with open('./seen.json', 'wt') as file:
                 json.dump(seen_messages, file)
@@ -233,9 +232,7 @@ def read_email():
 
 
 if __name__ == '__main__':
-    down_mail = threading.Thread(target = download_email)
-    down_mail.start()
-    down_mail.join()
+    download_email()
     
     
     
