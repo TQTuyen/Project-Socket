@@ -1,4 +1,4 @@
-import smtp1
+import smtp
 import download_email
 
 
@@ -15,7 +15,7 @@ if __name__ == '__main__':
             print('Giá trị không hợp lệ')
             continue
         elif choice == '1':
-            smtp1.main()
+            smtp.main()
         elif choice == '2':
             download_email.read_email()
         elif choice == '3':
